@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}About Student Portal{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="card" style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
+        <div style="text-align: center; margin-bottom: 2.5rem;">
+            <i class="fas fa-university" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h1>About Student Portal</h1>
+            <p class="text-muted">A comprehensive academic management and data visualization system.</p>
+        </div>
+
+        <h3>Our Vision</h3>
+        <p>
+            The Student Portal is designed to provide a transparent and data-driven approach to educational management.
+            By centralizing student performance metrics, we empower educators to identify trends, support low-performing
+            individuals,
+            and celebrate high achievers in real-time.
+        </p>
+
+        <div class="grid grid-2" style="margin: 2rem 0;">
+            <div
+                style="background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 1px solid var(--border-color);">
+                <h4 style="color: var(--primary-color);"><i class="fas fa-microchip"></i> Data Accuracy</h4>
+                <p style="font-size: 0.9rem;">No machine learning models are used. All analytics are based on actual
+                    verified marks and attendance data.</p>
+            </div>
+            <div
+                style="background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 1px solid var(--border-color);">
+                <h4 style="color: var(--primary-color);"><i class="fas fa-shield-alt"></i> Secure Access</h4>
+                <p style="font-size: 0.9rem;">Institutional data is protected via secure session handling and encrypted
+                    password storage.</p>
+            </div>
+        </div>
+
+        <h3>Core Functions</h3>
+        <ul style="padding-left: 1.5rem; margin-bottom: 2rem;">
+            <li><strong>Batch Submission:</strong> Simplified mark entry for multiple subjects in one go.</li>
+            <li><strong>Real-time Analytics:</strong> Instant visualization of class distribution and subject averages.
+            </li>
+            <li><strong>Leaderboards:</strong> Automatic ranking of students based on academic performance.</li>
+            <li><strong>Report Generation:</strong> One-click CSV export for offline records.</li>
+        </ul>
+
+        <div
+            style="text-align: center; padding: 2rem; background: var(--primary-color); color: white; border-radius: 1rem;">
+            <h3 style="color: white; margin-bottom: 0.5rem;">Need Support?</h3>
+            <p>For administrative issues or bug reports, please contact the IT department at support@studentportal.edu
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}

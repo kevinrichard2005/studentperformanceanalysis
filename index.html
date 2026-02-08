@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<main class="container" style="min-height: 70vh; display: flex; align-items: center;">
+    <div class="grid grid-2" style="align-items: center;">
+        <div>
+            <h1 style="font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem;">
+                Higher Grade <span style="color: var(--primary-color);">Data Analytics</span> for Students
+            </h1>
+            <p class="text-muted" style="font-size: 1.25rem; margin-bottom: 2rem;">
+                Empower educators with real-time insights into student performance, attendance correlation, and subject
+                mastery. No machine learning, just pure data-driven results.
+            </p>
+            <div style="display: flex; gap: 1rem;">
+                <a href="/register" class="btn btn-primary">Get Started Now</a>
+                <a href="#features" class="btn btn-outline">Explore Features</a>
+            </div>
+        </div>
+        <div style="position: relative;">
+            <div
+                style="background: var(--primary-color); width: 100%; height: 400px; border-radius: 2rem; opacity: 0.1; position: absolute; transform: rotate(-5deg);">
+            </div>
+            <div class="card" style="position: relative; z-index: 1;">
+                <i class="fas fa-chart-bar"
+                    style="font-size: 4rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>Visual Analytics</h3>
+                <p class="text-muted">Interactive charts and dashboards providing a clear overview of educational
+                    progress.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<section id="features" class="container">
+    <div style="text-align: center; margin-bottom: 4rem;">
+        <h2>Powerful Modules</h2>
+        <p class="text-muted">Everything you need to manage and analyze student data effectively.</p>
+    </div>
+
+    <div class="grid grid-3">
+        <div class="card">
+            <i class="fas fa-user-shield"
+                style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3>Secure Auth</h3>
+            <p class="text-muted">Encrypted passwords and session-based access control.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-database" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3>Record Manager</h3>
+            <p class="text-muted">Full CRUD operations for student marks and attendance.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-file-csv" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <h3>Export Reports</h3>
+            <p class="text-muted">Download detailed performance reports in CSV format.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
