@@ -8,7 +8,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
-        value: 3.10.0
+        value: 3.11.0
     disk:
       name: student-data
       mountPath: /data
