@@ -14,10 +14,10 @@
 <body>
     <nav class="navbar">
         <a href="/" class="nav-logo">
-            <i class="fas fa-university"></i> Student Portal
+            <i class="fas fa-graduation-cap"></i> <span>Student Portal</span>
         </a>
 
-        <button class="nav-toggle">
+        <button class="nav-toggle" aria-label="Toggle menu">
             <i class="fas fa-bars"></i>
         </button>
 
@@ -28,10 +28,10 @@
             <a href="/students" class="{% if request.path == '/students' %}active{% endif %}">Records</a>
             <a href="/leaderboard" class="{% if request.path == '/leaderboard' %}active{% endif %}">Leaderboard</a>
             <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">About</a>
-            <a href="/logout" class="btn btn-outline" style="padding: 0.5rem 1rem;">Logout</a>
+            <a href="/logout" class="btn btn-logout">Logout</a>
             {% else %}
             <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
-            <a href="/register" class="btn btn-primary" style="color: white; padding: 0.5rem 1rem;">Register</a>
+            <a href="/register" class="btn btn-primary" style="color: white !important;">Register</a>
             {% endif %}
         </div>
     </nav>
@@ -40,7 +40,11 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
-        <div class="flash {{ category }}">{{ message }}</div>
+        <div class="flash {{ category }}">
+            <i
+                class="fas {% if category == 'success' %}fa-check-circle{% elif category == 'error' %}fa-exclamation-circle{% else %}fa-info-circle{% endif %}"></i>
+            {{ message }}
+        </div>
         {% endfor %}
         {% endif %}
         {% endwith %}
@@ -48,12 +52,11 @@
 
     {% block content %}{% endblock %}
 
-    <footer
-        style="text-align: center; padding: 2rem; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 4rem;">
+    <footer class="footer">
         &copy; 2024 Student Portal. Built with Flask & Chart.js
     </footer>
 
-    <script src="/static/js/script.js"></script>
+    <script src="/script.js?v=1.0.2"></script>
 </body>
 
 </html>
