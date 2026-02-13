@@ -9,7 +9,10 @@ services:
         generateValue: true
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: FLASK_ENV
+        value: production
     disk:
       name: student-data
       mountPath: /data
       sizeGB: 1
+    healthCheckPath: /health

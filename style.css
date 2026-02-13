@@ -270,6 +270,40 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }
 
+/* Password Visibility Toggle */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100% !important;
+    padding-right: 3rem !important;
+    margin: 0 !important;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-muted);
+    z-index: 10;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.toggle-password:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
 /* Tables */
 .table-responsive {
     overflow-x: auto;

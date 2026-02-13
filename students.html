@@ -4,133 +4,270 @@
 
 {% block content %}
 <main class="container">
-    <div class="grid layout-grid">
+    <div class="layout-grid">
         <!-- Add Record Form -->
         <aside class="sidebar">
             <div class="card sticky-sidebar">
-                <h3>Batch Record Entry</h3>
-                <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 1rem;">Enter marks for all subjects
-                    below.</p>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                    <i class="fas fa-user-plus" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+                    <h3 style="margin-bottom: 0;">Batch Record Entry</h3>
+                </div>
+                <p class="text-muted"
+                    style="font-size: 0.9rem; margin-bottom: 1.5rem; background: #f8fafc; padding: 0.75rem; border-radius: 0.5rem;">
+                    <i class="fas fa-info-circle"></i> Enter marks for all subjects below. Leave blank for subjects not
+                    taken.
+                </p>
+
                 <form action="/students" method="POST">
                     <div class="form-group">
-                        <label>Student Name</label>
-                        <input type="text" name="name" required placeholder="Full Name">
+                        <label><i class="fas fa-user"></i> Student Name</label>
+                        <input type="text" name="name" required placeholder="Enter full name" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label>Roll Number</label>
-                        <input type="text" name="roll_number" required placeholder="Reg ID">
+                        <label><i class="fas fa-id-card"></i> Roll Number</label>
+                        <input type="text" name="roll_number" required placeholder="e.g., REG2024001"
+                            autocomplete="off">
+                    </div>
+
+                    <div style="margin: 1.5rem 0 0.5rem; padding: 0.5rem; background: #f8fafc; border-radius: 0.5rem;">
+                        <span style="font-weight: 600; color: var(--text-main);"><i class="fas fa-flask"></i> Subject
+                            Marks (0-100)</span>
                     </div>
 
                     <div class="grid grid-2" style="gap: 1rem;">
                         <div class="form-group">
-                            <label>Mathematics</label>
-                            <input type="number" name="marks_Mathematics" min="0" max="100" placeholder="0-100">
+                            <label style="font-size: 0.85rem;">Mathematics</label>
+                            <input type="number" name="marks_Mathematics" min="0" max="100" placeholder="0-100"
+                                class="mark-input">
                         </div>
                         <div class="form-group">
-                            <label>Physics</label>
-                            <input type="number" name="marks_Physics" min="0" max="100" placeholder="0-100">
+                            <label style="font-size: 0.85rem;">Physics</label>
+                            <input type="number" name="marks_Physics" min="0" max="100" placeholder="0-100"
+                                class="mark-input">
                         </div>
                     </div>
 
                     <div class="grid grid-2" style="gap: 1rem;">
                         <div class="form-group">
-                            <label>Chemistry</label>
-                            <input type="number" name="marks_Chemistry" min="0" max="100" placeholder="0-100">
+                            <label style="font-size: 0.85rem;">Chemistry</label>
+                            <input type="number" name="marks_Chemistry" min="0" max="100" placeholder="0-100"
+                                class="mark-input">
                         </div>
                         <div class="form-group">
-                            <label>Biology</label>
-                            <input type="number" name="marks_Biology" min="0" max="100" placeholder="0-100">
+                            <label style="font-size: 0.85rem;">Biology</label>
+                            <input type="number" name="marks_Biology" min="0" max="100" placeholder="0-100"
+                                class="mark-input">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>English</label>
-                        <input type="number" name="marks_English" min="0" max="100" placeholder="0-100">
+                        <label style="font-size: 0.85rem;">English</label>
+                        <input type="number" name="marks_English" min="0" max="100" placeholder="0-100"
+                            class="mark-input">
                     </div>
 
                     <div class="form-group">
-                        <label>Attendance (%)</label>
-                        <input type="number" name="attendance" min="0" max="100" required placeholder="Overall %">
+                        <label><i class="fas fa-calendar-check"></i> Attendance (%)</label>
+                        <input type="number" name="attendance" min="0" max="100" required
+                            placeholder="Overall attendance %" class="attendance-input">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Entire Profile</button>
+
+                    <div style="display: grid; gap: 0.75rem;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-save"></i> Submit Entire Profile
+                        </button>
+                        <button type="reset" class="btn btn-outline" style="width: 100%;">
+                            <i class="fas fa-undo"></i> Reset Form
+                        </button>
+                    </div>
                 </form>
             </div>
         </aside>
 
         <!-- Records Table -->
         <section>
-            <div class="card">
+            <div class="card" style="padding: 1.5rem;">
                 <div
                     style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-                    <h3>Performance Records</h3>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <a href="/export" class="btn btn-outline" style="padding: 0.5rem 1rem;">
-                            <i class="fas fa-download"></i> Export CSV
-                        </a>
+                    <div>
+                        <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.25rem;">
+                            <i class="fas fa-database" style="color: var(--primary-color);"></i>
+                            Performance Records
+                        </h3>
+                        <span class="text-muted" style="font-size: 0.85rem;">
+                            <i class="fas fa-hashtag"></i> {{ students|length }} record(s) found
+                        </span>
                     </div>
+                    <a href="/export" class="btn btn-success">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </a>
                 </div>
 
                 <!-- Search & Filters -->
                 <form method="GET" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
-                    <input type="text" name="search" placeholder="Search by name, roll, or subject..."
-                        value="{{ search }}" style="flex: 1;">
-                    <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1rem;">
+                    <div style="flex: 1; position: relative;">
+                        <i class="fas fa-search"
+                            style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                        <input type="text" name="search" placeholder="Search by name, roll number, or subject..."
+                            value="{{ search }}" style="padding-left: 2.5rem;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
                         <i class="fas fa-search"></i>
                     </button>
-                    <a href="/students" class="btn btn-outline" style="padding: 0.5rem 1rem;">Reset</a>
+                    <a href="/students" class="btn btn-outline">
+                        <i class="fas fa-times"></i>
+                    </a>
                 </form>
 
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
-                                <th><a href="?sort=name">Name <i class="fas fa-sort"></i></a></th>
+                                <th><a href="?sort=name&search={{ search }}"
+                                        style="display: flex; align-items: center; gap: 0.25rem; text-decoration: none; color: inherit;">Name
+                                        <i class="fas fa-sort"></i></a></th>
                                 <th>Roll No</th>
-                                <th><a href="?sort=subject">Subject <i class="fas fa-sort"></i></a></th>
-                                <th><a href="?sort=marks DESC">Marks <i class="fas fa-sort"></i></a></th>
-                                <th><a href="?sort=attendance DESC">Attendance <i class="fas fa-sort"></i></a></th>
+                                <th><a href="?sort=subject&search={{ search }}"
+                                        style="display: flex; align-items: center; gap: 0.25rem; text-decoration: none; color: inherit;">Subject
+                                        <i class="fas fa-sort"></i></a></th>
+                                <th><a href="?sort=marks DESC&search={{ search }}"
+                                        style="display: flex; align-items: center; gap: 0.25rem; text-decoration: none; color: inherit;">Marks
+                                        <i class="fas fa-sort"></i></a></th>
+                                <th><a href="?sort=attendance DESC&search={{ search }}"
+                                        style="display: flex; align-items: center; gap: 0.25rem; text-decoration: none; color: inherit;">Attendance
+                                        <i class="fas fa-sort"></i></a></th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for student in students %}
+                            {% set marks = student['marks']|int %}
+                            {% set attendance = student['attendance']|int %}
                             <tr>
-                                <td>{{ student['name'] }}</td>
-                                <td>{{ student['roll_number'] }}</td>
-                                <td><span
-                                        style="background: #eef2ff; color: #4f46e5; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">{{
-                                        student['subject'] }}</span></td>
                                 <td>
-                                    <span style="font-weight: 700;"
-                                        class="{% if student['marks'] < 40 %}text-danger{% elif student['marks'] < 75 %}text-warning{% else %}text-success{% endif %}">
-                                        {{ student['marks'] }}%
+                                    <span style="font-weight: 600;">{{ student['name'] }}</span>
+                                </td>
+                                <td>
+                                    <code style="background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">
+                                        {{ student['roll_number'] }}
+                                    </code>
+                                </td>
+                                <td>
+                                    <span
+                                        style="background: #eef2ff; color: var(--primary-color); padding: 0.35rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600;">
+                                        {{ student['subject'] }}
                                     </span>
                                 </td>
-                                <td>{{ student['attendance'] }}%</td>
                                 <td>
-                                    <div style="display: flex; gap: 0.5rem;">
-                                        <a href="/edit/{{ student['id'] }}" class="text-muted" title="Edit"><i
-                                                class="fas fa-edit"></i></a>
-                                        <a href="/delete/{{ student['id'] }}" class="text-muted"
-                                            style="color: var(--danger);" onclick="return confirm('Are you sure?')"
-                                            title="Delete"><i class="fas fa-trash"></i></a>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        {% if marks < 40 %} <span style="font-weight: 700; color: var(--danger);">{{
+                                            marks }}%</span>
+                                            {% elif marks < 75 %} <span
+                                                style="font-weight: 700; color: var(--warning);">{{ marks }}%</span>
+                                                {% else %}
+                                                <span style="font-weight: 700; color: var(--success);">{{ marks
+                                                    }}%</span>
+                                                {% endif %}
+
+                                                <div
+                                                    style="width: 50px; height: 6px; background: #e2e8f0; border-radius: 3px;">
+                                                    <div style="--w: {{ marks or 0 }}%; width: var(--w); height: 6px; border-radius: 3px; display: block;"
+                                                        class="progress-bar {{ 'bg-danger' if marks < 40 else ('bg-warning' if marks < 75 else 'bg-success') }}">
+                                                    </div>
+                                                </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="font-weight: 600;">{{ attendance }}%</span>
+                                        <span style="font-size: 0.75rem; color: var(--text-muted);">
+                                            {% if attendance >= 75 %}
+                                            (<span style="color: var(--success);">Regular</span>)
+                                            {% else %}
+                                            (<span style="color: var(--danger);">Irregular</span>)
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; gap: 0.75rem;">
+                                        <a href="/edit/{{ student['id'] }}" class="btn btn-outline"
+                                            style="padding: 0.4rem 0.8rem;" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="/delete/{{ student['id'] }}" class="btn btn-outline"
+                                            style="padding: 0.4rem 0.8rem; color: var(--danger); border-color: var(--danger);"
+                                            onclick="return confirm('⚠️ Are you sure you want to delete this record?\nThis action cannot be undone.')"
+                                            title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
                             {% else %}
                             <tr>
-                                <td colspan="6" style="text-align: center; padding: 3rem;">
+                                <td colspan="6" style="text-align: center; padding: 4rem;">
                                     <i class="fas fa-folder-open"
                                         style="font-size: 3rem; color: var(--border-color); display: block; margin-bottom: 1rem;"></i>
-                                    No records found.
+                                    <h4 style="margin-bottom: 0.5rem;">No Records Found</h4>
+                                    <p class="text-muted" style="margin-bottom: 1.5rem;">Start by adding your first
+                                        student record using the form.</p>
+                                    <a href="#add-form" class="btn btn-primary"
+                                        onclick="document.querySelector('.sticky-sidebar form input').focus();">
+                                        <i class="fas fa-plus-circle"></i> Add Your First Record
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
+
+                {% if students %}
+                <div
+                    style="margin-top: 1rem; padding: 0.75rem; background: #f8fafc; border-radius: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle"></i> Showing {{ students|length }} record(s)
+                    </small>
+                    <small class="text-muted">
+                        <i class="fas fa-chart-line"></i>
+                        Avg Score:
+                        {% set ns = namespace(total=0) %}
+                        {% for s in students %}
+                        {% set ns.total = ns.total + s['marks']|int %}
+                        {% endfor %}
+                        {{ (ns.total / students|length)|round(1) if students|length > 0 else 0 }}%
+                    </small>
+                </div>
+                {% endif %}
             </div>
         </section>
     </div>
 </main>
+
+<script>
+    // Focus on add form if URL has #add-form
+    if (window.location.hash === '#add-form') {
+        var formInput = document.querySelector('.sticky-sidebar form input');
+        if (formInput) {
+            formInput.focus();
+        }
+    }
+
+    // Validate marks and attendance inputs
+    var markInputs = document.querySelectorAll('.mark-input, .attendance-input');
+    for (var i = 0; i < markInputs.length; i++) {
+        markInputs[i].addEventListener('input', function () {
+            var value = parseInt(this.value, 10);
+            if (this.value === '') return;
+            if (isNaN(value)) {
+                this.value = '';
+            } else if (value < 0) {
+                this.value = 0;
+            } else if (value > 100) {
+                this.value = 100;
+            }
+        });
+    }
+</script>
 {% endblock %}

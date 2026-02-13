@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal - {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css?v=1.0.5">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Chart.js Fallback -->
+    <script>window.Chart || document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"><\/script>');</script>
 </head>
 
 <body>
@@ -28,7 +30,10 @@
             <a href="/students" class="{% if request.path == '/students' %}active{% endif %}">Records</a>
             <a href="/leaderboard" class="{% if request.path == '/leaderboard' %}active{% endif %}">Leaderboard</a>
             <a href="/about" class="{% if request.path == '/about' %}active{% endif %}">About</a>
-            <a href="/logout" class="btn btn-logout">Logout</a>
+            <span class="nav-user">
+                <i class="fas fa-user-circle"></i> {{ session.username }}
+            </span>
+            <a href="/logout" class="btn-logout">Logout</a>
             {% else %}
             <a href="/login" class="{% if request.path == '/login' %}active{% endif %}">Login</a>
             <a href="/register" class="btn btn-primary" style="color: white !important;">Register</a>
@@ -41,8 +46,7 @@
         {% if messages %}
         {% for category, message in messages %}
         <div class="flash {{ category }}">
-            <i
-                class="fas {% if category == 'success' %}fa-check-circle{% elif category == 'error' %}fa-exclamation-circle{% else %}fa-info-circle{% endif %}"></i>
+            <i class="fas {% if category == 'success' %}fa-check-circle{% elif category == 'error' %}fa-exclamation-circle{% elif category == 'warning' %}fa-exclamation-triangle{% else %}fa-info-circle{% endif %}"></i>
             {{ message }}
         </div>
         {% endfor %}
@@ -53,10 +57,15 @@
     {% block content %}{% endblock %}
 
     <footer class="footer">
-        &copy; 2024 Student Portal. Built with Flask & Chart.js
+        <div class="container">
+            <p>&copy; 2024 Student Portal. Built with Flask & Chart.js</p>
+            <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.8rem;">
+                <i class="fas fa-shield-alt"></i> Secure Educational Data Management System
+            </p>
+        </div>
     </footer>
 
-    <script src="/script.js?v=1.0.2"></script>
+    <script src="/script.js?v=1.0.5"></script>
 </body>
 
 </html>

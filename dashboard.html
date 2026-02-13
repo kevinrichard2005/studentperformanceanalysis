@@ -4,41 +4,109 @@
 
 {% block content %}
 <main class="container">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <div
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
         <div>
-            <h1><i class="fas fa-university"></i> Student Portal Dashboard</h1>
-            <p class="text-muted">Welcome back, {{ session.username }}</p>
+            <h1 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                <i class="fas fa-chart-line" style="color: var(--primary-color);"></i>
+                Dashboard
+            </h1>
+            <p class="text-muted" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0;">
+                <i class="fas fa-user-circle"></i> Welcome back, <strong>{{ session.username }}</strong>
+                <span
+                    style="background: #eef2ff; color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600;">
+                    <i class="fas fa-school"></i> Educator
+                </span>
+            </p>
         </div>
-        <a href="/students" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Add New Record
-        </a>
+        <div style="display: flex; gap: 0.75rem;">
+            <a href="/students" class="btn btn-primary">
+                <i class="fas fa-plus-circle"></i> Add New Record
+            </a>
+            <a href="/export" class="btn btn-outline">
+                <i class="fas fa-download"></i> Export
+            </a>
+        </div>
     </div>
 
     <!-- Summary Cards -->
     <div class="grid grid-3" style="margin-bottom: 2.5rem;">
         <div class="card stats-card" style="border-left: 4px solid var(--primary-color);">
-            <span class="stats-label">Total Students</span>
-            <span class="stats-value">{{ total_students }}</span>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <span class="stats-label">Total Students</span>
+                    <span class="stats-value">{{ total_students }}</span>
+                </div>
+                <div style="background: rgba(30, 58, 138, 0.1); padding: 0.75rem; border-radius: 0.75rem;">
+                    <i class="fas fa-users" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted);">
+                <i class="fas fa-graduation-cap"></i> Active students
+            </div>
         </div>
         <div class="card stats-card" style="border-left: 4px solid var(--success);">
-            <span class="stats-label">Class Average Marks</span>
-            <span class="stats-value">{{ avg_marks }}%</span>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <span class="stats-label">Class Average</span>
+                    <span class="stats-value">{{ avg_marks }}%</span>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 0.75rem; border-radius: 0.75rem;">
+                    <i class="fas fa-star" style="font-size: 1.5rem; color: var(--success);"></i>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted);">
+                <i class="fas fa-chart-bar"></i> Across all subjects
+            </div>
         </div>
         <div class="card stats-card" style="border-left: 4px solid var(--warning);">
-            <span class="stats-label">Average Attendance</span>
-            <span class="stats-value">{{ avg_attendance }}%</span>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <span class="stats-label">Avg Attendance</span>
+                    <span class="stats-value">{{ avg_attendance }}%</span>
+                </div>
+                <div style="background: rgba(245, 158, 11, 0.1); padding: 0.75rem; border-radius: 0.75rem;">
+                    <i class="fas fa-calendar-check" style="font-size: 1.5rem; color: var(--warning);"></i>
+                </div>
+            </div>
+            <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted);">
+                <i class="fas fa-clock"></i> Overall attendance rate
+            </div>
         </div>
     </div>
 
     <!-- Charts Section -->
     <div class="grid grid-2">
         <div class="card">
-            <h3>Subject Performance</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0;">
+                    <i class="fas fa-chart-bar" style="color: var(--primary-color);"></i>
+                    Subject Performance
+                </h3>
+                <span
+                    style="background: var(--primary-color); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600;">
+                    Average Marks
+                </span>
+            </div>
             <canvas id="subjectChart"></canvas>
+            <div style="margin-top: 1rem; text-align: right;">
+                <small class="text-muted">
+                    <i class="fas fa-info-circle"></i> Class performance by subject
+                </small>
+            </div>
         </div>
         <div class="card">
-            <h3>Marks Distribution</h3>
-            <div style="max-width: 300px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0;">
+                    <i class="fas fa-chart-pie" style="color: var(--primary-color);"></i>
+                    Marks Distribution
+                </h3>
+                <span
+                    style="background: var(--success); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600;">
+                    Performance Levels
+                </span>
+            </div>
+            <div style="max-width: 350px; margin: 0 auto;">
                 <canvas id="distributionChart"></canvas>
             </div>
         </div>
@@ -46,30 +114,82 @@
 
     <div class="grid grid-2" style="margin-top: 2rem;">
         <div class="card">
-            <h3>Attendance vs Marks Correlation</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0;">
+                    <i class="fas fa-chart-area" style="color: var(--primary-color);"></i>
+                    Attendance vs Marks
+                </h3>
+                <span
+                    style="background: var(--warning); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600;">
+                    Correlation
+                </span>
+            </div>
             <canvas id="scatterChart"></canvas>
+            <div style="margin-top: 1rem;">
+                <small class="text-muted">
+                    <i class="fas fa-lightbulb"></i> Each point represents a student record
+                </small>
+            </div>
         </div>
         <div class="card">
-            <h3>Top Performers</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0;">
+                    <i class="fas fa-trophy" style="color: var(--warning);"></i>
+                    Top Performers
+                </h3>
+                <span
+                    style="background: var(--warning); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600;">
+                    Leaderboard
+                </span>
+            </div>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
+                            <th style="width: 60px; text-align: center;">Rank</th>
                             <th>Student</th>
-                            <th>Average Marks</th>
+                            <th style="text-align: right;">Average</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% if top_performers %}
-                        {% for name, marks in top_performers.items() %}
+                        {% for student in top_performers %}
                         <tr>
-                            <td>{{ name }}</td>
-                            <td><strong>{{ marks|round(1) }}%</strong></td>
+                            <td style="text-align: center; font-weight: 700;">
+                                {% if loop.index == 1 %}
+                                <span style="font-size: 1.5rem;">🥇</span>
+                                {% elif loop.index == 2 %}
+                                <span style="font-size: 1.5rem;">🥈</span>
+                                {% elif loop.index == 3 %}
+                                <span style="font-size: 1.5rem;">🥉</span>
+                                {% else %}
+                                #{{ loop.index }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <strong>{{ student.name }}</strong>
+                                <br>
+                                <small class="text-muted">{{ student.roll_number }}</small>
+                            </td>
+                            <td style="text-align: right;">
+                                <span style="font-weight: 700; color: var(--primary-color);">
+                                    {{ student.marks|round(1) }}%
+                                </span>
+                            </td>
                         </tr>
                         {% endfor %}
                         {% else %}
                         <tr>
-                            <td colspan="2" style="text-align: center;">No data available</td>
+                            <td colspan="3" style="text-align: center; padding: 3rem;">
+                                <i class="fas fa-users-slash"
+                                    style="font-size: 2.5rem; color: var(--border-color); display: block; margin-bottom: 1rem;"></i>
+                                <span class="text-muted">No data available</span>
+                                <br>
+                                <small style="display: block; margin-top: 1rem;">
+                                    <a href="/students" style="color: var(--primary-color);">Add student records</a> to
+                                    see rankings
+                                </small>
+                            </td>
                         </tr>
                         {% endif %}
                     </tbody>
@@ -78,16 +198,74 @@
         </div>
     </div>
 
+    <!-- Subject Averages -->
     <div class="card" style="margin-top: 2rem;">
-        <h3>Subject Wise Average</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0;">
+                <i class="fas fa-book-open" style="color: var(--primary-color);"></i>
+                Subject Wise Average
+            </h3>
+            <span
+                style="background: var(--primary-color); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600;">
+                Performance Overview
+            </span>
+        </div>
         <div class="grid grid-3" style="margin-top: 1rem;">
+            {% if subject_avg %}
             {% for sub, mark in subject_avg.items() %}
-            <div class="p-4" style="background: #f8fafc; border-radius: 0.5rem; border: 1px solid var(--border-color);">
-                <div style="font-weight: 600;">{{ sub }}</div>
-                <div style="font-size: 1.5rem; color: var(--primary-color);">{{ mark|round(1) }}%</div>
+            <div
+                style="background: #f8fafc; border-radius: 1rem; padding: 1.5rem; border: 1px solid var(--border-color);">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                    <span style="font-weight: 700; color: var(--text-main);">{{ sub }}</span>
+                    <span
+                        style="background: var(--primary-color); color: white; padding: 0.25rem 0.75rem; border-radius: 2rem; font-size: 0.7rem; font-weight: 600;">
+                        AVG
+                    </span>
+                </div>
+                <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+                    <span style="font-size: 2rem; font-weight: 800; color: var(--primary-color);">{{ mark|round(1)
+                        }}</span>
+                    <span style="font-size: 1rem; color: var(--text-muted);">%</span>
+                </div>
+                <div style="margin-top: 1rem; height: 8px; background: #e2e8f0; border-radius: 4px;">
+                    <div
+                        style="--w: {{ mark or 0 }}%; width: var(--w); height: 8px; background: var(--primary-color); border-radius: 4px;">
+                    </div>
+                </div>
             </div>
             {% endfor %}
+            {% else %}
+            <div style="text-align: center; padding: 3rem; grid-column: span 3;">
+                <i class="fas fa-chart-line"
+                    style="font-size: 2.5rem; color: var(--border-color); margin-bottom: 1rem;"></i>
+                <p class="text-muted">No subject data available</p>
+                <small><a href="/students" style="color: var(--primary-color);">Add student records</a> to see subject
+                    averages</small>
+            </div>
+            {% endif %}
         </div>
     </div>
 </main>
+
+<script>
+    // Dashboard chart initialization
+    document.addEventListener('DOMContentLoaded', function () {
+        var subjectChart = document.getElementById('subjectChart');
+        if (subjectChart) {
+            var checkRenderCharts = setInterval(function () {
+                if (typeof renderCharts === 'function') {
+                    clearInterval(checkRenderCharts);
+                    setTimeout(function () {
+                        var event = new CustomEvent('dashboard-ready');
+                        document.dispatchEvent(event);
+                    }, 100);
+                }
+            }, 100);
+            setTimeout(function () {
+                clearInterval(checkRenderCharts);
+            }, 3000);
+        }
+    });
+</script>
 {% endblock %}

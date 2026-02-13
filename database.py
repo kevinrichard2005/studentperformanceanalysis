@@ -21,7 +21,8 @@ def init_db():
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
     ''')
     
@@ -35,9 +36,14 @@ def init_db():
         marks INTEGER NOT NULL,
         attendance INTEGER NOT NULL,
         user_id INTEGER,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users (id)
     )
     ''')
+    
+    # Create indexes for better performance
+    cursor.execute('CREATE INDEX IF NOT EXISTS idx_user_id ON students(user_id)')
+    cursor.execute('CREATE INDEX IF NOT EXISTS idx_roll_number ON students(roll_number)')
     
     conn.commit()
     conn.close()
